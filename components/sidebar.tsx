@@ -10,7 +10,7 @@ export function Sidebar({ className }: SidebarProps) {
     <div className={cn("pb-12 min-h-screen bg-[#F5F9FF]", className)}>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
-          <div className="flex flex-col items-start space-y-2">
+          <div className="flex flex-col items-center space-y-2">
             <Image src="/coretoday.png" alt="logo" width={150} height={150} />
             <p className="text-lg">X</p>
             <Image src="/kokkiri.png" alt="logo" width={150} height={150} />
@@ -19,7 +19,7 @@ export function Sidebar({ className }: SidebarProps) {
         <div className="px-3 py-2">
           <div className="space-y-1">
             <Link
-              href="#"
+              href="/test"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900"
             >
               <BarChart2 className="h-4 w-4" />
