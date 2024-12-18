@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -11,8 +11,10 @@ import { ArrowLeft } from 'lucide-react'
 export default function InputPerformanceModelPage() {
   const router = useRouter()
   const [image, setImage] = useState<string | null>(null)
-  const [category, setCategory] = useState('')
+  const [actualResult, setActualResult] = useState('')
+  const [expectedResult, setExpectedResult] = useState('')
   const [weight, setWeight] = useState('')
+  const [showActualResult, setShowActualResult] = useState(false)
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -31,13 +33,14 @@ export default function InputPerformanceModelPage() {
     // This is a mock function. In a real application, you would call an AI service here.
     const categories = ['animal', 'vehicle', 'robot', 'misc']
     const randomCategory = categories[Math.floor(Math.random() * categories.length)]
-    setCategory(randomCategory)
+    setActualResult(randomCategory)
+    setShowActualResult(true)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically send the data to your backend
-    console.log({ image, category, weight })
+    console.log({ image, actualResult, expectedResult, weight })
     // Redirect back to the main page
     router.push('/')
   }
@@ -58,12 +61,24 @@ export default function InputPerformanceModelPage() {
         
         <Button type="button" onClick={categorizeImage} className="bg-blue-600 hover:bg-blue-700 text-white">Categorize</Button>
         
+        {showActualResult && (
+          <div>
+            <Label htmlFor="actual-result" className="text-black">Actual Result</Label>
+            <Input 
+              id="actual-result"
+              value={actualResult}
+              readOnly
+              className="w-full p-2 border rounded border-gray-300 focus:ring-blue-500 bg-gray-100 text-black"
+            />
+          </div>
+        )}
+        
         <div>
-          <Label htmlFor="category" className="text-black">Category</Label>
+          <Label htmlFor="expected-result" className="text-black">Expected Result</Label>
           <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            id="expected-result"
+            value={expectedResult}
+            onChange={(e) => setExpectedResult(e.target.value)}
             className="w-full p-2 border rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-black"
           >
             <option value="">Select a category</option>
@@ -93,4 +108,3 @@ export default function InputPerformanceModelPage() {
     </div>
   )
 }
-
